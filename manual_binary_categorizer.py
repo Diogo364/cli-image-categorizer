@@ -81,12 +81,15 @@ if __name__ == '__main__':
                 print_instrutions()
 
             elif pressed_char:
-                print(f'[INFO] Moving image to {directory_path[pressed_char]}')
-                move_to_directory(image_from_source_path, os.path.join(directory_path[pressed_char], im))
-                print(f'[INFO] Image successfully moved')
-                classification_amount += 1
-                cv2.destroyAllWindows()
-                break
+                try:
+                    print(f'[INFO] Moving image to {directory_path[pressed_char]}')
+                    move_to_directory(image_from_source_path, os.path.join(directory_path[pressed_char], im))
+                    print(f'[INFO] Image successfully moved')
+                    classification_amount += 1
+                    cv2.destroyAllWindows()
+                    break
+                except KeyError:
+                    print(f'[INFO] You have entered an invalid key: {pressed_char}. If you need any help press `h`')
 
         if finish_program:
             break
