@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     
     print(f'[INFO] Loading images from: {args.images_dir}')
-    images_path = os.listdir(os.path.join(args.images_dir))
+    images_path = sorted(os.listdir(os.path.join(args.images_dir)))
     print(f'[INFO] Total of {len(images_path)} images loaded')
 
     classification_amount = 0
