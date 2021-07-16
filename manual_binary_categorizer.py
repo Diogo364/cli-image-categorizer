@@ -85,12 +85,12 @@ if __name__ == '__main__':
                 move_to_directory(image_from_source_path, os.path.join(directory_path[pressed_char], im))
                 print(f'[INFO] Image successfully moved')
                 classification_amount += 1
+                cv2.destroyAllWindows()
                 break
 
         if finish_program:
             break
     
-    cv2.destroyAllWindows()
     print(f'[INFO] Classified {classification_amount} images')
     print(f'Done')
         
