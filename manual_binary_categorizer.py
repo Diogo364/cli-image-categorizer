@@ -2,20 +2,7 @@ import os
 import argparse
 import glob
 import cv2
-
-def create_directory(dirname):
-    os.mkdir(dirname)
-    return 1
-
-def move_to_directory(filename1, filename2):
-    os.rename(filename1, filename2)
-    return 1
-
-def is_directory(directory):
-    return os.path.isdir(directory)
-
-def parse_cv2_pressed_key_to_char(pressed_key):
-    return chr(pressed_key & 255)
+from scripts import utils
 
 def print_instrutions():
     print(f'''
@@ -24,7 +11,7 @@ def print_instrutions():
 - Press `b` to move image to dir b {directory_path["b"]}
 - Press `q` to exit program
 - Press `h` to see this menu again
-    ''')
+''')
 
 
 if __name__ == '__main__':
@@ -42,10 +29,10 @@ if __name__ == '__main__':
     }
 
     if args.create_dir:
-        print(f'[INFO] Creating directory: {dir}')
         for dir in directory_path.values():
-            if not is_directory(dir):
-                created = create_directory(dir)
+            print(f'[INFO] Creating directory: {dir}')
+            if not utils.is_directory(dir):
+                created = utils.create_directory(dir)
                 assert created, "Unexpected problem on creation of dir: {dir}"
 
     
@@ -71,7 +58,7 @@ if __name__ == '__main__':
         while not finish_program:
 
             pressed_key = cv2.waitKey(0)
-            pressed_char = parse_cv2_pressed_key_to_char(pressed_key)
+            pressed_char = utils.parse_cv2_pressed_key_to_char(pressed_key)
            
             if pressed_char == 'q':
                 print(f'[INFO] Exiting program')
@@ -83,7 +70,7 @@ if __name__ == '__main__':
             elif pressed_char:
                 try:
                     print(f'[INFO] Moving image to {directory_path[pressed_char]}')
-                    move_to_directory(image_from_source_path, os.path.join(directory_path[pressed_char], im))
+                    utils.move_to_directory(image_from_source_path, os.path.join(directory_path[pressed_char], im))
                     print(f'[INFO] Image successfully moved')
                     classification_amount += 1
                     cv2.destroyAllWindows()
