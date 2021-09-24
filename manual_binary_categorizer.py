@@ -19,7 +19,7 @@ if __name__ == '__main__':
     parser.add_argument('images_dir', type=str, help='Directory that contains images to classify')
     parser.add_argument('-a', '--dir-a', required=True, type=str, help='Directory corresponding to the first category')
     parser.add_argument('-b', '--dir-b', required=True, type=str, help='Directory corresponding to the second category')
-    parser.add_argument('--create-dir', action='store_true', help='Use this parameter to create directory if does not exist')
+    parser.add_argument('--create-dir', action='store_true', help='Use this parameter to create all output directories if they do not exist')
 
     args = parser.parse_args()
 

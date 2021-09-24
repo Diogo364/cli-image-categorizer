@@ -3,23 +3,79 @@
 ## Description
 These CLI programs help speed up and improve the manual image categorization process by providing a simple, but effective workflow. 
 
-**:warning: Still in development :warning:**
-
+## Table of contents
 - [Image Categorizer](#image-categorizer)
   - [Description](#description)
+  - [Table of contents](#table-of-contents)
   - [How to use](#how-to-use)
+    - [Manual Binary Categorizer](#manual-binary-categorizer)
+      - [Description:](#description-1)
+      - [Commands:](#commands)
+      - [CLI Parameters:](#cli-parameters)
+      - [Example of usage:](#example-of-usage)
+    - [Manual Multiclass Categorizer](#manual-multiclass-categorizer)
+      - [Description:](#description-2)
+      - [Commands:](#commands-1)
+      - [CLI Parameters:](#cli-parameters-1)
+      - [Example of usage:](#example-of-usage-1)
     - [Instalation](#instalation)
-    - [Instructions](#instructions)
   - [Technologies](#technologies)
   - [Autor](#autor)
 
-
+---
 ## How to use
+### Manual Binary Categorizer
+#### Description:
+CLI application to classify all images from a specific directory into two categories: `A` or `B`.
+
+By calling the CLI application you will define the directory associated with `A` and `B`. When a image is classified, it is automatically moved from the source directory to the target directory assigned.
+
+#### Commands:
+- `a`: Move the shown image to directory `A`;
+- `b`: Move the shown image to directory `B`;
+- `q`: Exit the program;
+- `h`: Print all commands and instructions in the terminal;
+#### CLI Parameters:
+- `images_dir`:
+  - Source directory containing all images that should be classified.
+  - Kind: Positional argument.
+- `-a` or `--dir-a`:
+  - Directory associated with the category `A`.
+- `b` or `--dir-b`:
+  - Directory associated with the category `B`.
+- `--create-dir`:
+  - If used both ,dir-a and dir-b, are going to be created if already do not exist.
+
+#### Example of usage:
+> ```$ python manual_binary_categorizer ./dataset/images -a ./target/classA -b ./target/classB --create-dir```
+
+---
+### Manual Multiclass Categorizer
+#### Description:
+CLI application to classify all images from a specific directory into various categories (Maximum of 34 classes).
+
+By calling the CLI application you will define a list of output directories, corresponding to each class you want to classify. This list o directories will be associated with all digits and lower-case letters, in that order. When a image is classified, it is automatically moved from the source directory to the target directory assigned.
+
+#### Commands:
+- `digits` and `letters`: Move the shown image to directory associated;
+  - The directories listed are going to be assigned first by numeric order from [0,9] and then in alphabetical order [a, z].
+- `q`: Exit the program;
+- `h`: Print all commands and instructions in the terminal;
+#### CLI Parameters:
+- `images_dir`:
+  - Source directory containing all images that should be classified.
+  - Kind: Positional argument.
+- `-d` or `--dir-list`:
+  - Output directories separated by space.
+- `--create-dir`:
+  - If used both ,dir-a and dir-b, are going to be created if already do not exist.
+
+#### Example of usage:
+> ```$ python manual_multiclass_categorizer ./dataset/images -d ./target/classA ./target/classB ./target/classC --create-dir```
 
 ### Instalation
-
-### Instructions
-
+All requirements are in the `requirements.txt` file. From pip, just run in the terminal the following command and you are ready to go.
+> ```$ pip install -r requirements.txt```
 ## Technologies
 
 - `Python>=3.8`
