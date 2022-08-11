@@ -18,6 +18,7 @@ if __name__ == '__main__':
     parser.add_argument('images_dir', type=str, help='Directory that contains images to classify')
     parser.add_argument('-d', '--dir-list', required=True, nargs='+', help='Destination directories separated by space. The number of classes will be assumed as the number of directories.')
     parser.add_argument('--create-dir', action='store_true', help='Use this parameter to create directory if does not exist')
+    parser.add_argument('--resize', type=int, default=None, help='Apply aspect ratio resize (This value acts as new height)')
 
     args = parser.parse_args()
 
@@ -44,6 +45,11 @@ if __name__ == '__main__':
         
         image_from_source_path = os.path.join(args.images_dir, im)
         image = cv2.imread(image_from_source_path)
+        if args.resize is not None:
+            h, w, c = image.shape
+            ratio = args.resize / h
+            new_w = int(w * ratio)
+            image = cv2.resize(image, (new_w, args.resize), interpolation=cv2.INTER_NEAREST)
         
         cv2.imshow(f'Image - {im}', image)
         
